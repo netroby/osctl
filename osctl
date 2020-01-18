@@ -9,7 +9,7 @@ case $1 in
 		set -ex
 		if [ -f $BASEPATH/${2}.ini ];then
 			set -ex
-		        cp -f $BASEPATH/${2}.ini /usr/local/etc/supervisor.d/${2}.ini
+		        sudo cp  $BASEPATH/${2}.ini /usr/local/etc/supervisor.d/${2}.ini
 			set +ex
 		fi
 		${ssupervisorctl} reload
@@ -23,7 +23,7 @@ case $1 in
 		
 		if [ -f /usr/local/etc/supervisor.d/${2}.ini ]; then
 			set -ex
-			unlink /usr/local/etc/supervisor.d/${2}.ini
+			sudo unlink /usr/local/etc/supervisor.d/${2}.ini
 			set +ex
 		else 
 			echo "Do not need to unlink"
@@ -46,7 +46,7 @@ case $1 in
 		;;
 	'logs') echo 'view logs of service'
 		set -ex
-		${ssupervisorctl} tail ${2}
+		${ssupervisorctl} tail -f ${2}
 		set +ex
 		;;
 	*)	echo "Usage: ${0} enable|disable|start|stop|status|logs serviceName"

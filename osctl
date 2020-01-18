@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/sh
 BASEPATH=$(pwd)
 ssupervisorctl="supervisorctl -c /usr/local/etc/supervisord.ini"
 echo $BASEPATH

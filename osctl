@@ -9,7 +9,7 @@ case $1 in
 		set -ex
 		if [ -f $BASEPATH/${2}.ini ];then
 			set -ex
-		        cp $BASEPATH/${2}.ini /usr/local/etc/supervisor.d/${2}.ini
+		        cp -f $BASEPATH/${2}.ini /usr/local/etc/supervisor.d/${2}.ini
 			set +ex
 		fi
 		${ssupervisorctl} reload

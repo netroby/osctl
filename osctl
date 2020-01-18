@@ -1,0 +1,54 @@
+#!/bin/bash
+#!/bin/sh
+BASEPATH=$(pwd)
+ssupervisorctl="supervisorctl -c /usr/local/etc/supervisord.ini"
+echo $BASEPATH
+
+case $1 in
+	'enable') echo 'enable service'
+		set -ex
+		if [ -f $BASEPATH/${2}.ini ];then
+			set -ex
+		        cp $BASEPATH/${2}.ini /usr/local/etc/supervisor.d/${2}.ini
+			set +ex
+		fi
+		${ssupervisorctl} reload
+		${ssupervisorctl} restart ${2}
+		set +ex
+		;;
+	'disable') echo 'disable service'
+		set -ex
+		${ssupervisorctl} stop ${2}
+		set +ex
+		
+		if [ -f /usr/local/etc/supervisor.d/${2}.ini ]; then
+			set -ex
+			unlink /usr/local/etc/supervisor.d/${2}.ini
+			set +ex
+		else 
+			echo "Do not need to unlink"
+		fi
+		;;
+	'start') echo 'start service'
+		set -ex
+		${ssupervisorctl} start ${2}
+		set +ex
+		;;
+	'stop') echo 'stop service'
+		set -ex
+		${ssupervisorctl} stop ${2}
+		set +ex
+		;;
+	'status') echo 'status of service'
+		set -ex
+		${ssupervisorctl} status ${2}
+		set +ex
+		;;
+	'logs') echo 'view logs of service'
+		set -ex
+		${ssupervisorctl} tail ${2}
+		set +ex
+		;;
+	*)	echo "Usage: ${0} enable|disable|start|stop|status|logs serviceName"
+		;;
+esac

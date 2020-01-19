@@ -53,6 +53,12 @@ case $1 in
 		${ssupervisorctl} tail -f ${2}
 		set +ex
 		;;
-	*)	echo "Usage: ${0} enable|disable|start|restart|stop|status|logs serviceName"
+	'list') echo 'list service'
+		set -ex
+		${ssupervisorctl} status
+		set +ex
+		;;
+
+	*)	echo "Usage: ${0} enable|disable|start|restart|stop|status|logs|list serviceName"
 		;;
 esac

@@ -33,6 +33,11 @@ case $1 in
 		${ssupervisorctl} start ${2}
 		set +ex
 		;;
+	'restart') echo 'restart service'
+		set -ex
+		${ssupervisorctl} restart ${2}
+		set +ex
+		;;
 	'stop') echo 'stop service'
 		set -ex
 		${ssupervisorctl} stop ${2}
@@ -48,6 +53,6 @@ case $1 in
 		${ssupervisorctl} tail -f ${2}
 		set +ex
 		;;
-	*)	echo "Usage: ${0} enable|disable|start|stop|status|logs serviceName"
+	*)	echo "Usage: ${0} enable|disable|start|restart|stop|status|logs serviceName"
 		;;
 esac

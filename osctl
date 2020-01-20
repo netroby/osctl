@@ -58,7 +58,11 @@ case $1 in
 		${ssupervisorctl} status
 		set +ex
 		;;
-
-	*)	echo "Usage: ${0} enable|disable|start|restart|stop|status|logs|list serviceName"
+	'reload') echo 'reload service'
+		set -ex
+		${ssupervisorctl} reload
+		set +ex
+		;;
+	*)	echo "Usage: ${0} reload|enable|disable|start|restart|stop|status|logs|list serviceName"
 		;;
 esac
